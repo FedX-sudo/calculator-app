@@ -1,41 +1,30 @@
-# Program to Show how to use textinput
-# (UX widget) in kivy using .kv file
-
-# import kivy module
 import kivy
 
-# base Class of your App inherits from the App class.
-# app:always refers to the instance of your application
 from kivy.app import App
 from kivy.uix.widget import Widget
+from kivy.config import Config
 
-# this restrict the kivy version i.e
-# below this kivy version you cannot
-# use the app or software
 kivy.require('1.9.0')
 
-
-# Widgets are elements
-# of a graphical user interface
-# that form part of the User Experience.
-
-
-# The TextInput widget provides a
-# box for editable plain text
-
-# This layout allows you to set relative coordinates for children.
+Config.set('graphics', 'width', '300')
+Config.set('graphics', 'height', '375')
+Config.set('graphics', 'resizable', False)
 
 
-# Create the widget class
 class textinp(Widget):
     pass
 
 
-# Create the app class
+def entry():
+    return text_inp
+
+
+# Building text input
 
 
 class MainApp(App):
-    # Building text input
+    global text_inp
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.text = None
@@ -43,29 +32,37 @@ class MainApp(App):
     def build(self):
         return textinp()
 
-    # Arranging that what you write will be shown to you
-    # in IDLE
+    @property
+    def entry(self):
+        return text_inp
+
+    def remove(self, rmtype):
+        global text_inp
+        if rmtype == 1:
+            text_inp = text_inp[:-1]
+        if rmtype == 2:
+            text_inp = ''
+
+
     def process(self, num, type1):
-        global text
+        global text_inp
         if type1 == 1:
-            if self.text == "enter":
+            if self.text == "return":
                 self.process('1', 4)
-            text = self.root.ids.input.text
 
         elif type1 == 2:
-            text += num
-        elif type1 == 3:
-            text = ""
+            text_inp += num
         else:
             try:
                 # Solve formula and display it in entry
                 # which is pointed at by display
-                print(str(eval(text)))
+                return str(eval(text_inp))
             except Exception:
-                print("Error")
-        print(text)
+                return "Error"
+        print(text_inp)
 
 
+text_inp = ''
 # Run the App
 if __name__ == "__main__":
     MainApp().run()
