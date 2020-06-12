@@ -3,7 +3,7 @@ import kivy
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.config import Config
-
+from kivy.uix import screenmanager
 kivy.require('1.9.0')
 
 Config.set('graphics', 'width', '300')
@@ -13,10 +13,6 @@ Config.set('graphics', 'resizable', False)
 
 class textinp(Widget):
     pass
-
-
-def entry():
-    return text_inp
 
 
 # Building text input
@@ -32,10 +28,6 @@ class MainApp(App):
     def build(self):
         return textinp()
 
-    @property
-    def entry(self):
-        return text_inp
-
     def remove(self, rmtype):
         global text_inp
         if rmtype == 1:
@@ -43,12 +35,13 @@ class MainApp(App):
         if rmtype == 2:
             text_inp = ''
 
-
     def process(self, num, type1):
         global text_inp
         if type1 == 1:
             if self.text == "return":
                 self.process('1', 4)
+            else:
+                text_inp += self.root.ids.input.text
 
         elif type1 == 2:
             text_inp += num
@@ -59,7 +52,6 @@ class MainApp(App):
                 return str(eval(text_inp))
             except Exception:
                 return "Error"
-        print(text_inp)
 
 
 text_inp = ''
