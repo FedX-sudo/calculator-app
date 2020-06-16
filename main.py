@@ -6,7 +6,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.lang import Builder
 
 kivy.require('1.9.0')
-# setting up gui
+
 Config.set('graphics', 'width', '300')
 Config.set('graphics', 'height', '375')
 Config.set('graphics', 'resizable', False)
@@ -177,43 +177,36 @@ Builder.load_string("""# .kv file implementation of the code
 """)
 
 
-# creating first screen
 class four_function(Screen):
     pass
 
 
-# creating second screen
 class sci_function(Screen):
     pass
 
 
-# Building screen managment
+# Building text input
 screen_manager = ScreenManager()
 
 screen_manager.add_widget(four_function(name="four_function"))
 screen_manager.add_widget(sci_function(name="sci_function"))
 
 
-# buildign app
-class MainApp(App):
-    def build(self):
-        return screen_manager
-
+def remove(rmtype):
     global text_inp
+    if rmtype == 1:
+        text_inp = text_inp[:-1]
+    if rmtype == 2:
+        text_inp = ''
 
-    # removing input
-    def remove(rmtype):
-        global text_inp
-        if rmtype == 1:
-            text_inp = text_inp[:-1]
-        if rmtype == 2:
-            text_inp = ''
+class MainApp(App):
+    global text_inp
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.text = None
+        super().__getattr__ = super.__getattribute__(**kwargs)
 
-    # input
     def process(self, num, type1):
         global text_inp
         if type1 == 1:
@@ -224,7 +217,6 @@ class MainApp(App):
 
         elif type1 == 2:
             text_inp += num
-        # computing input
         else:
             try:
                 # Solve formula and display it in entry
@@ -233,8 +225,9 @@ class MainApp(App):
             except Exception:
                 return "Error"
 
+    def build(self):
+        return screen_manager
 
-# defining a global variable
 text_inp = ''
 # Run the App
 if __name__ == "__main__":
