@@ -3,11 +3,11 @@ from kivy.lang import Builder
 from kivy.uix.widget import Widget
 from kivy.config import Config
 import main
-print("huh")
-Config.set('graphics', 'width', '3000')
+
+Config.set('graphics', 'width', '300')
 Config.set('graphics', 'height', '375')
 Config.set('graphics', 'resizable', False)
-Builder.load_file('/Users/Fenix/Documents/GitHub/calculator-app/sci_functoin.kv')
+Builder.load_file('/Users/Fenix/Documents/GitHub/calculator-app/four_functoin.kv')
 
 
 class textinp(Widget):
@@ -26,7 +26,7 @@ class MainApp(App):
 
     @staticmethod
     def mode():
-        main.run(1)
+        main.run(2)
 
     @staticmethod
     def remove(rmtype):
