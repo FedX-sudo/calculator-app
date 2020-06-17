@@ -1,10 +1,10 @@
-# .kv file implementation of the code
 <CustButton@Button>:
     font_size: 32
     size: 75, 75
     size_hint: None, None
 
 <four_function>:
+    input_text: input_text
     id: four_function
     padding: None
     spacing: None
@@ -159,5 +159,3 @@
                 root.manager.transition.direction = 'left'
                 root.manager.transition.duration = 1
                 root.manager.current = 'four_function'
-
-
