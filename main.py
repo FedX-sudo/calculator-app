@@ -12,7 +12,6 @@ Config.set('graphics', 'width', '300')
 Config.set('graphics', 'height', '375')
 Config.set('graphics', 'resizable', False)
 
-
 class four_function(Screen):
     pass
 
@@ -21,14 +20,11 @@ class sci_function(Screen):
 
 
 # Building text input
-screen_manager = ScreenManager()
-
-screen_manager.add_widget(four_function(name="four_function"))
-screen_manager.add_widget(sci_function(name="sci_function"))
 
 
 class MainApp(App):
     input_text = ObjectProperty(None)
+    Builder.load_file('main.kv')
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -60,6 +56,13 @@ class MainApp(App):
                 return str(eval(input_text))
             except Exception:
                 return "Error"
+
+
+screen_manager = ScreenManager()
+
+screen_manager.add_widget(four_function(name="four_function"))
+screen_manager.add_widget(sci_function(name="sci_function"))
+
 
 
 input_text = ''
